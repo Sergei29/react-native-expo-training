@@ -23,8 +23,8 @@ const square = {
 };
 const styles = StyleSheet.create({
   appContainer: {
-    // alignItems: "center",
-    justifyContent: "center",
+    alignItems: "center",
+    justifyContent: "space-around",
     height: "30%",
     flexDirection: "row",
   },
@@ -32,18 +32,21 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
     alignItems: "center",
     justifyContent: "center",
-    ...square,
+    flex: 2,
+    // ...square,
   },
   two: {
     backgroundColor: "blue",
     alignItems: "center",
     justifyContent: "center",
-    ...square,
+    flex: 3,
+    // ...square,
   },
   three: {
     backgroundColor: "green",
     alignItems: "center",
     justifyContent: "center",
-    ...square,
+    flex: 1,
+    // ...square,
   },
 });
