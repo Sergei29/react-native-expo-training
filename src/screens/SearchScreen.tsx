@@ -1,21 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
 
-import { fetchData } from "../lib";
-import { BusinessSearchResponse, BusinessSummary } from "../types";
+import useBusinessSearch from "../hooks/useBusinessSearch";
 import SearchBar from "../components/SearchBar";
-
-interface State {
-  data: BusinessSummary[];
-  loading: boolean;
-  error: null | string;
-}
-
-const initState: State = {
-  data: [],
-  loading: false,
-  error: null,
-};
 
 interface IProps {
   [x: string]: any;
@@ -23,30 +10,9 @@ interface IProps {
 
 const SearchScreen = ({}: IProps): JSX.Element => {
   const [term, setTerm] = useState<string>("");
-  const [results, setResults] = useState<State>(initState);
-
-  const fetchResults = async (seatchTerm: string) => {
-    if (!seatchTerm) return;
-
-    setResults({ ...initState, loading: true });
-
-    const { data, error } = await fetchData<BusinessSearchResponse>("/search", {
-      params: {
-        term: seatchTerm,
-        location: "London",
-        sort_by: "best_match",
-        limit: 50,
-      },
-    });
-
-    !error && setTerm("");
-    setResults((current) => ({
-      ...current,
-      loading: false,
-      error,
-      data: data?.businesses || [],
-    }));
-  };
+  const [fetchResults, results] = useBusinessSearch({
+    onSuccess: () => setTerm(""),
+  });
 
   const handleSubmit = () => {
     fetchResults(term.trim());
