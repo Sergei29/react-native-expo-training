@@ -12,19 +12,16 @@ import { Feather } from "@expo/vector-icons";
 const LIGHT_GREY = "#f0eeee";
 
 interface IProps {
-  handleSearchSubmit: (newTerm: string) => void;
+  term: string;
+  setTerm: React.Dispatch<React.SetStateAction<string>>;
+  handleSearchSubmit: () => void;
 }
 
-const SearchBar = ({ handleSearchSubmit }: IProps): JSX.Element => {
-  const [location, setLocation] = useState<string>("");
-
-  const handleSubmit = (
-    _event: NativeSyntheticEvent<TextInputEndEditingEventData>
-  ) => {
-    handleSearchSubmit(location.trim());
-    setLocation("");
-  };
-
+const SearchBar = ({
+  handleSearchSubmit,
+  term,
+  setTerm,
+}: IProps): JSX.Element => {
   return (
     <View style={styles.container}>
       <Feather name="search" style={styles.icon} />
@@ -33,9 +30,9 @@ const SearchBar = ({ handleSearchSubmit }: IProps): JSX.Element => {
         autoCapitalize="none"
         autoCorrect={false}
         style={styles.input}
-        onChangeText={setLocation}
-        onEndEditing={handleSubmit}
-        value={location}
+        onChangeText={setTerm}
+        onEndEditing={handleSearchSubmit}
+        value={term}
       />
     </View>
   );
