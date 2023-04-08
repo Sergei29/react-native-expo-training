@@ -23,6 +23,7 @@ const screens = [
   { id: "5", path: "Color", title: "Go to Color Demo" },
   { id: "6", path: "ColorAdjust", title: "Go to Color Adjust Demo" },
   { id: "7", path: "TextInput", title: "Go to Text input Demo" },
+  { id: "8", path: "Box", title: "Go to Box Screen Demo" },
 ];
 
 const HomeScreen = ({ navigation }: NavigationScreenConfigProps<any, any>) => {
