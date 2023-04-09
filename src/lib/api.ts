@@ -1,5 +1,7 @@
-import { yelpApi } from "./axios";
 import { AxiosRequestConfig, AxiosResponse } from "axios";
+
+import { BusinessSummary, BusinessSummaryFormated } from "../types";
+import { yelpApi } from "./axios";
 
 const wait = (delay: number) =>
   new Promise((resolve) => {
@@ -52,3 +54,28 @@ export const fetchData = async <D = any>(
     };
   }
 };
+
+const getPriceRange = (price?: string): "cheap" | "medium" | "expensive" => {
+  const length = price?.length || 0;
+  if (length < 2) return "cheap";
+  if (length === 2) return "medium";
+  return "expensive";
+};
+
+export const formatBusinessList = (
+  bizListFromApi: BusinessSummary[]
+): BusinessSummaryFormated[] =>
+  bizListFromApi.length > 0
+    ? bizListFromApi.map(
+        ({ id, alias, name, image_url, review_count, rating, price }) => ({
+          id,
+          alias,
+          name,
+          image_url,
+          review_count,
+          rating,
+          price,
+          range: getPriceRange(price),
+        })
+      )
+    : [];
