@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
 
 import useBusinessSearch from "../hooks/useBusinessSearch";
@@ -17,14 +17,6 @@ const SearchScreen = ({}: IProps): JSX.Element => {
   const handleSubmit = () => {
     fetchResults(term.trim());
   };
-
-  /**
-   *@description effect to fetch initial data
-   to display something on the search page 😀
-   */
-  useEffect(() => {
-    fetchResults("pasta");
-  }, []);
 
   return (
     <View style={styles.screen}>

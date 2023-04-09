@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 import { fetchData } from "../lib";
 import { BusinessSearchResponse, BusinessSummary } from "../types";
@@ -46,6 +46,14 @@ const useBusinessSearch = ({
       error,
       data: data?.businesses || [],
     }));
+  }, []);
+
+  /**
+   *@description effect to fetch initial data
+   to display something on the search page 😀
+   */
+  useEffect(() => {
+    fetchResults("pasta");
   }, []);
 
   return [fetchResults, results];
