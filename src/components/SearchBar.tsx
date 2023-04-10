@@ -1,15 +1,8 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  NativeSyntheticEvent,
-  TextInputEndEditingEventData,
-} from "react-native";
+import React from "react";
+import { View, StyleSheet, TextInput } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-const LIGHT_GREY = "#f0eeee";
+import { LIGHT_GREY } from "../constants";
 
 interface IProps {
   term: string;
@@ -44,7 +37,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 5,
     marginHorizontal: 15,
-    marginTop: 15,
+    marginVertical: 15,
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 8,

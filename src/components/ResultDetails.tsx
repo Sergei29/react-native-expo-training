@@ -1,6 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 
+import EmptyImage from "./EmptyImage";
+
 interface IProps {
   name: string;
   imageUrl: string;
@@ -18,7 +20,11 @@ const ResultDetails = ({
 }: IProps): JSX.Element => {
   return (
     <View style={styles.container}>
-      <Image source={{ uri: imageUrl }} style={styles.image} />
+      {!!imageUrl ? (
+        <Image source={{ uri: imageUrl }} style={styles.image} />
+      ) : (
+        <EmptyImage message="no image" />
+      )}
       <Text style={styles.name}>{name}</Text>
       <Text
         style={styles.rating}

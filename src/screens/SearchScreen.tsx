@@ -29,25 +29,22 @@ const SearchScreen = ({}: IProps): JSX.Element => {
         setTerm={setTerm}
         handleSearchSubmit={handleSubmit}
       />
-      {results.error ? (
-        <Text style={styles.error}>{results.error}</Text>
-      ) : (
-        <Text style={styles.info}>
-          We have found {results.data.length} results
-        </Text>
-      )}
+      {results.error && <Text style={styles.error}>{results.error}</Text>}
       <ScrollView>
         <ResultsList
+          isLoading={results.loading}
           title="Cost Effective"
           results={formattedList.filter((current) => current.range === "cheap")}
         />
         <ResultsList
+          isLoading={results.loading}
           title="Bit Pricer"
           results={formattedList.filter(
             (current) => current.range === "medium"
           )}
         />
         <ResultsList
+          isLoading={results.loading}
           title="Big Spender!"
           results={formattedList.filter(
             (current) => current.range === "expensive"
@@ -61,7 +58,7 @@ const SearchScreen = ({}: IProps): JSX.Element => {
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: "#fff",
-    height: "100%",
+    flex: 1,
   },
   error: {
     color: "red",

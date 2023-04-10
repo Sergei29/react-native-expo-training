@@ -4,15 +4,34 @@ import { View, Text, StyleSheet, FlatList } from "react-native";
 import { BusinessSummaryFormated } from "../types";
 import ResultDetails from "./ResultDetails";
 
+const Loading = () => (
+  <View style={styles.loading}>
+    <Text>Loading...</Text>
+  </View>
+);
+
 interface IProps {
+  isLoading: boolean;
   title: string;
   results: BusinessSummaryFormated[];
 }
 
-const ResultsList = ({ title, results }: IProps): JSX.Element => {
+const ResultsList = ({
+  title,
+  results,
+  isLoading,
+}: IProps): JSX.Element | null => {
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (!isLoading && results.length === 0) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title + ` ${results.length}`}</Text>
+      <Text style={styles.title}>{title}</Text>
       <FlatList
         data={results}
         keyExtractor={(item) => item.id}
@@ -42,6 +61,11 @@ const styles = StyleSheet.create({
   },
   list: {
     minHeight: 50,
+  },
+  loading: {
+    height: 165,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
