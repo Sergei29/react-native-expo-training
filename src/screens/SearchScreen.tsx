@@ -6,11 +6,7 @@ import ResultsList from "../components/ResultsList";
 import SearchBar from "../components/SearchBar";
 import { formatBusinessList } from "../lib";
 
-interface IProps {
-  [x: string]: any;
-}
-
-const SearchScreen = ({}: IProps): JSX.Element => {
+const SearchScreen = (): JSX.Element => {
   const [term, setTerm] = useState<string>("");
   const [fetchResults, results] = useBusinessSearch({
     onSuccess: () => setTerm(""),

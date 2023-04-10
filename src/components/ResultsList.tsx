@@ -1,5 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
+import { withNavigation } from "react-navigation";
+import { NavigationStackScreenProps } from "react-navigation-stack";
 
 import { BusinessSummaryFormated } from "../types";
 import ResultDetails from "./ResultDetails";
@@ -14,12 +22,14 @@ interface IProps {
   isLoading: boolean;
   title: string;
   results: BusinessSummaryFormated[];
+  navigation: NavigationStackScreenProps["navigation"];
 }
 
 const ResultsList = ({
   title,
   results,
   isLoading,
+  navigation,
 }: IProps): JSX.Element | null => {
   if (isLoading) {
     return <Loading />;
@@ -36,13 +46,23 @@ const ResultsList = ({
         data={results}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <ResultDetails
-            name={item.name}
-            imageUrl={item.image_url}
-            reviewCount={item.review_count}
-            rating={item.rating}
-            pathname={`/${item.alias}`}
-          />
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate({
+                routeName: "ResultShow",
+                params: {
+                  id: item.alias,
+                },
+              })
+            }
+          >
+            <ResultDetails
+              name={item.name}
+              imageUrl={item.image_url}
+              reviewCount={item.review_count}
+              rating={item.rating}
+            />
+          </TouchableOpacity>
         )}
         style={styles.list}
         horizontal
@@ -69,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ResultsList;
+export default withNavigation(ResultsList);

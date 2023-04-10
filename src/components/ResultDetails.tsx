@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 
 import EmptyImage from "./EmptyImage";
 
@@ -8,7 +8,6 @@ interface IProps {
   imageUrl: string;
   reviewCount: number;
   rating: number;
-  pathname: string;
 }
 
 const ResultDetails = ({
@@ -16,7 +15,6 @@ const ResultDetails = ({
   imageUrl,
   reviewCount,
   rating,
-  pathname,
 }: IProps): JSX.Element => {
   return (
     <View style={styles.container}>
