@@ -1,9 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, FlatList, Image } from "react-native";
-import { NavigationStackScreenProps } from "react-navigation-stack";
+import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 import useBusinessDetails from "../hooks/useBusinessDetails";
 import EmptyImage from "../components/skeletons/EmptyImage";
+import { RootStackParamList } from "../types";
 
 const Loader = () => (
   <View style={styles.loader}>
@@ -19,10 +20,11 @@ const Error = ({ message = "Business not found." }: { message?: string }) => (
   </View>
 );
 
-const ResultShowScreen = ({
-  navigation,
-}: NavigationStackScreenProps): JSX.Element => {
-  const id = navigation.getParam("id") as string;
+type Props = NativeStackScreenProps<RootStackParamList, "ResultShow">;
+
+const ResultShowScreen = ({ route }: Props): JSX.Element => {
+  const id = route.params.id;
+
   const { data, loading, error } = useBusinessDetails({ id });
 
   if (loading) {

@@ -6,8 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { withNavigation } from "react-navigation";
-import { NavigationStackScreenProps } from "react-navigation-stack";
+import { useNavigation } from "@react-navigation/native";
 
 import { BusinessSummaryFormated } from "../types";
 import ResultsListLoading from "./skeletons/ResultsListLoading";
@@ -17,15 +16,15 @@ interface IProps {
   isLoading: boolean;
   title: string;
   results: BusinessSummaryFormated[];
-  navigation: NavigationStackScreenProps["navigation"];
 }
 
 const ResultsList = ({
   title,
   results,
   isLoading,
-  navigation,
 }: IProps): JSX.Element | null => {
+  const navigation = useNavigation();
+
   if (isLoading) {
     return <ResultsListLoading />;
   }
@@ -43,12 +42,12 @@ const ResultsList = ({
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate({
-                routeName: "ResultShow",
-                params: {
+              navigation.navigate(
+                "ResultShow" as never,
+                {
                   id: item.alias,
-                },
-              })
+                } as never
+              )
             }
           >
             <ResultDetails
@@ -83,4 +82,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withNavigation(ResultsList);
+export default ResultsList;
