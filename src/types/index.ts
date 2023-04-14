@@ -4,3 +4,8 @@ export type RootStackParamList = {
   Create: undefined;
   Edit: { id: string };
 };
+
+export interface BlogPost {
+  id: string;
+  title: string;
+}
