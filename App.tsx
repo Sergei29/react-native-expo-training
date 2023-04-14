@@ -1,20 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import ResultShowScreen from "./src/screens/ResultShowScreen";
+import SearchScreen from "./src/screens/SearchScreen";
+import { RootStackParamList } from "./src/types";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const Stack = createStackNavigator<RootStackParamList>();
+
+const App = (): JSX.Element => (
+  <NavigationContainer>
+    <Stack.Navigator
+      screenOptions={{
+        headerTitle: "Business Search",
+      }}
+    >
+      <Stack.Screen name="Search" component={SearchScreen} />
+      <Stack.Screen name="ResultShow" component={ResultShowScreen} />
+    </Stack.Navigator>
+  </NavigationContainer>
+);
+
+export default App;
