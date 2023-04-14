@@ -1,8 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import ResultShowScreen from "./src/screens/ResultShowScreen";
-import SearchScreen from "./src/screens/SearchScreen";
+import IndexScreen from "./src/screens/IndexScreen";
 import { RootStackParamList } from "./src/types";
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -11,11 +10,10 @@ const App = (): JSX.Element => (
   <NavigationContainer>
     <Stack.Navigator
       screenOptions={{
-        headerTitle: "Business Search",
+        headerTitle: "Blog",
       }}
     >
-      <Stack.Screen name="Search" component={SearchScreen} />
-      <Stack.Screen name="ResultShow" component={ResultShowScreen} />
+      <Stack.Screen name="Home" component={IndexScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );
