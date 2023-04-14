@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-import { LIGHT_GREY } from "../constants";
+import { LIGHT_GREY } from "../../constants";
 
 interface IProps {
   message?: string;

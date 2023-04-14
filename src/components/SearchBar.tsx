@@ -14,22 +14,20 @@ const SearchBar = ({
   handleSearchSubmit,
   term,
   setTerm,
-}: IProps): JSX.Element => {
-  return (
-    <View style={styles.container}>
-      <Feather name="search" style={styles.icon} />
-      <TextInput
-        placeholder="Search"
-        autoCapitalize="none"
-        autoCorrect={false}
-        style={styles.input}
-        onChangeText={setTerm}
-        onEndEditing={handleSearchSubmit}
-        value={term}
-      />
-    </View>
-  );
-};
+}: IProps): JSX.Element => (
+  <View style={styles.container}>
+    <Feather name="search" style={styles.icon} />
+    <TextInput
+      placeholder="Search"
+      autoCapitalize="none"
+      autoCorrect={false}
+      style={styles.input}
+      onChangeText={setTerm}
+      onEndEditing={handleSearchSubmit}
+      value={term}
+    />
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {

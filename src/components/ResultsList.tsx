@@ -10,13 +10,8 @@ import { withNavigation } from "react-navigation";
 import { NavigationStackScreenProps } from "react-navigation-stack";
 
 import { BusinessSummaryFormated } from "../types";
+import ResultsListLoading from "./skeletons/ResultsListLoading";
 import ResultDetails from "./ResultDetails";
-
-const Loading = () => (
-  <View style={styles.loading}>
-    <Text>Loading...</Text>
-  </View>
-);
 
 interface IProps {
   isLoading: boolean;
@@ -32,7 +27,7 @@ const ResultsList = ({
   navigation,
 }: IProps): JSX.Element | null => {
   if (isLoading) {
-    return <Loading />;
+    return <ResultsListLoading />;
   }
 
   if (!isLoading && results.length === 0) {
@@ -40,7 +35,7 @@ const ResultsList = ({
   }
 
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.title}>{title}</Text>
       <FlatList
         data={results}
@@ -73,7 +68,6 @@ const ResultsList = ({
 };
 
 const styles = StyleSheet.create({
-  container: {},
   title: {
     fontSize: 24,
     marginVertical: 8,

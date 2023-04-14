@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-import EmptyImage from "./EmptyImage";
+import EmptyImage from "./skeletons/EmptyImage";
 
 interface IProps {
   name: string;
@@ -24,9 +24,7 @@ const ResultDetails = ({
         <EmptyImage message="no image" />
       )}
       <Text style={styles.name}>{name}</Text>
-      <Text
-        style={styles.rating}
-      >{`${rating} Stars, ${reviewCount} Reviews`}</Text>
+      <Text>{`${rating} Stars, ${reviewCount} Reviews`}</Text>
     </View>
   );
 };
@@ -45,7 +43,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-  rating: {},
 });
 
 export default ResultDetails;
