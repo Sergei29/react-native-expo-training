@@ -3,8 +3,11 @@ import React, { useContext, Reducer } from "react";
 import { BlogPost, Action } from "../types";
 import { createDataContext } from "./createDataContext";
 
+const getId = () => Math.floor(Math.random() * 999999).toString();
+
 const ACTION = {
   ADD_BLOGPOST: "ADD_BLOGPOST",
+  DELETE_BLOGPOST: "DELETE_BLOGPOST",
 } as const;
 
 type Context = {
@@ -20,8 +23,10 @@ const blogReducer: Reducer<Context["data"], { type: string; payload?: any }> = (
     case ACTION.ADD_BLOGPOST:
       return [
         ...state,
-        { id: `${state.length + 1}`, title: `BlogPost #${state.length + 1}` },
+        { id: getId(), title: `BlogPost #${state.length + 1}` },
       ];
+    case ACTION.DELETE_BLOGPOST:
+      return state.filter((item) => item.id !== action.payload);
 
     default:
       return state;
@@ -31,6 +36,9 @@ const blogReducer: Reducer<Context["data"], { type: string; payload?: any }> = (
 const generateActions = (dispatch: React.Dispatch<Action>) => ({
   addBlogPost: () => {
     dispatch({ type: ACTION.ADD_BLOGPOST });
+  },
+  deleteBlogPost: (id: string) => {
+    dispatch({ type: ACTION.DELETE_BLOGPOST, payload: id });
   },
 });
 
