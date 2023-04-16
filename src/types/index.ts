@@ -9,3 +9,8 @@ export interface BlogPost {
   id: string;
   title: string;
 }
+
+export interface Action<P = any> {
+  type: string;
+  payload?: P;
+}
