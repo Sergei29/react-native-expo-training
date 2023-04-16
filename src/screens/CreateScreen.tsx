@@ -19,13 +19,13 @@ const CreateScreen = (): JSX.Element => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const { navigate } = useNavigation();
+  const { addBlogPost } = useBlogContext();
 
   const handleSubmit = () => {
     if (!isFormValid({ title, content })) {
       return;
     }
-    //create new blog post
-    navigate("Home" as never);
+    addBlogPost({ title, content, onSuccess: () => navigate("Home" as never) });
   };
   return (
     <View style={styles.container}>

@@ -8,6 +8,7 @@ export type RootStackParamList = {
 export interface BlogPost {
   id: string;
   title: string;
+  content: string;
 }
 
 export interface Action<P = any> {

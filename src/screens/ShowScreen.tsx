@@ -23,6 +23,7 @@ const ShowScreen = (): JSX.Element => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{found.title}</Text>
+      <Text style={styles.content}>{found.content}</Text>
     </View>
   );
 };
@@ -39,6 +40,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     marginTop: 30,
+    textDecorationStyle: "solid",
+    textDecorationLine: "underline",
+    textDecorationColor: "grey",
+  },
+  content: {
+    fontSize: 18,
+    marginTop: 16,
   },
 });
 

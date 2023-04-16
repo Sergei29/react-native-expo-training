@@ -52,7 +52,6 @@ const HomeScreen = (): JSX.Element => {
 
   return (
     <View style={styles.screen}>
-      <Button title="Add" onPress={addBlogPost} />
       <FlatList
         style={styles.list}
         data={state}

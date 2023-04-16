@@ -1,6 +1,7 @@
 import React, { useContext, Reducer } from "react";
 
 import { BlogPost, Action } from "../types";
+import { mockBlogList } from "../constants";
 import { createDataContext } from "./createDataContext";
 
 const getId = () => Math.floor(Math.random() * 999999).toString();
@@ -23,7 +24,11 @@ const blogReducer: Reducer<Context["data"], { type: string; payload?: any }> = (
     case ACTION.ADD_BLOGPOST:
       return [
         ...state,
-        { id: getId(), title: `BlogPost #${state.length + 1}` },
+        {
+          id: getId(),
+          title: action.payload.title,
+          content: action.payload.content,
+        },
       ];
     case ACTION.DELETE_BLOGPOST:
       return state.filter((item) => item.id !== action.payload);
@@ -34,8 +39,15 @@ const blogReducer: Reducer<Context["data"], { type: string; payload?: any }> = (
 };
 
 const generateActions = (dispatch: React.Dispatch<Action>) => ({
-  addBlogPost: () => {
-    dispatch({ type: ACTION.ADD_BLOGPOST });
+  addBlogPost: (
+    createPayload: Omit<BlogPost, "id"> & { onSuccess: () => void }
+  ) => {
+    const { onSuccess, ...data } = createPayload;
+    try {
+      // not much useful here, but if we make an async call, good idea to implement it.
+      dispatch({ type: ACTION.ADD_BLOGPOST, payload: data });
+      onSuccess();
+    } catch (error) {}
   },
   deleteBlogPost: (id: string) => {
     dispatch({ type: ACTION.DELETE_BLOGPOST, payload: id });
@@ -45,7 +57,7 @@ const generateActions = (dispatch: React.Dispatch<Action>) => ({
 export const { Context, Provider } = createDataContext(
   blogReducer,
   generateActions,
-  []
+  [...mockBlogList]
 );
 
 export const useBlogContext = () => {

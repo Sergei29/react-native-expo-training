@@ -20,7 +20,7 @@ const AddNewButon = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   button: {
-    marginRight: 8,
+    marginRight: 16,
   },
 });
 
