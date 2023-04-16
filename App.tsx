@@ -6,6 +6,7 @@ import { Provider as BlogContextProvider } from "./src/context/BlogContext";
 import IndexScreen from "./src/screens/IndexScreen";
 import ShowScreen from "./src/screens/ShowScreen";
 import CreateScreen from "./src/screens/CreateScreen";
+import EditScreen from "./src/screens/EditScreen";
 import AddNewButon from "./src/components/AddNewButon";
 import EditButton from "./src/components/EditButton";
 import { RootStackParamList } from "./src/types";
@@ -39,6 +40,7 @@ const App = (): JSX.Element => (
           }}
         />
         <Stack.Screen name="Create" component={CreateScreen} />
+        <Stack.Screen name="Edit" component={EditScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   </BlogContextProvider>

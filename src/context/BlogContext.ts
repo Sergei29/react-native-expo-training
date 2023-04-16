@@ -9,6 +9,7 @@ const getId = () => Math.floor(Math.random() * 999999).toString();
 const ACTION = {
   ADD_BLOGPOST: "ADD_BLOGPOST",
   DELETE_BLOGPOST: "DELETE_BLOGPOST",
+  EDIT_BLOGPOST: "EDIT_BLOGPOST",
 } as const;
 
 type Context = {
@@ -33,6 +34,16 @@ const blogReducer: Reducer<Context["data"], { type: string; payload?: any }> = (
     case ACTION.DELETE_BLOGPOST:
       return state.filter((item) => item.id !== action.payload);
 
+    case ACTION.EDIT_BLOGPOST: {
+      const { id, ...restValues } = action.payload as Partial<BlogPost>;
+
+      return state.map((current) => {
+        if (current.id === id) {
+          return { ...current, ...restValues };
+        }
+        return current;
+      });
+    }
     default:
       return state;
   }
@@ -51,6 +62,14 @@ const generateActions = (dispatch: React.Dispatch<Action>) => ({
   },
   deleteBlogPost: (id: string) => {
     dispatch({ type: ACTION.DELETE_BLOGPOST, payload: id });
+  },
+  editBlogPost: (editPayload: BlogPost & { onSuccess: () => void }) => {
+    const { onSuccess, ...data } = editPayload;
+    try {
+      // not much useful here, but if we make an async call, good idea to implement it.
+      dispatch({ type: ACTION.EDIT_BLOGPOST, payload: data });
+      onSuccess();
+    } catch (error) {}
   },
 });
 

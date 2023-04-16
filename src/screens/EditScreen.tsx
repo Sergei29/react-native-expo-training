@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 
 import { useBlogContext } from "../context/BlogContext";
 import { pageStyles } from "../constants";
@@ -15,22 +15,48 @@ const isFormValid = ({
   return !!title.trim() && !!content.trim();
 };
 
-const CreateScreen = (): JSX.Element => {
+interface IProps {
+  [x: string]: any;
+}
+
+const EditScreen = ({}: IProps): JSX.Element => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  const { params } = useRoute<RouteProp<{ params: { id: string } }>>();
   const { navigate } = useNavigation();
-  const { addBlogPost } = useBlogContext();
+  const { state, editBlogPost } = useBlogContext();
+
+  const {
+    id,
+    title: currentTitle,
+    content: currentContent,
+  } = state.find((current) => current.id === params.id) || {};
 
   const handleSubmit = () => {
-    if (!isFormValid({ title, content })) {
+    if (!isFormValid({ title, content }) || !id) {
       return;
     }
-    addBlogPost({ title, content, onSuccess: () => navigate("Home" as never) });
+    editBlogPost({
+      id,
+      title,
+      content,
+      onSuccess: () => navigate("Home" as never),
+    });
   };
+
+  useEffect(() => {
+    if (!currentTitle || !currentContent) {
+      return;
+    }
+    setTitle(currentTitle);
+    setContent(currentContent);
+  }, [currentTitle, currentContent]);
+
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.label}>Enter Title: </Text>
+        <Text style={styles.label}>Enter New Title: </Text>
         <TextInput
           style={styles.input}
           onChangeText={(text) => {
@@ -41,7 +67,7 @@ const CreateScreen = (): JSX.Element => {
       </View>
 
       <View>
-        <Text style={styles.label}>Enter Content: </Text>
+        <Text style={styles.label}>Enter New Content: </Text>
         <TextInput
           editable
           multiline
@@ -85,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateScreen;
+export default EditScreen;

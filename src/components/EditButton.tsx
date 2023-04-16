@@ -14,7 +14,7 @@ const EditButton = ({}: IProps): JSX.Element => {
   const { navigate } = useNavigation();
 
   const handleNavigate = () => {
-    console.log("Edit, id: ", params.id);
+    navigate("Edit" as never, { id: params.id } as never);
   };
 
   return (
