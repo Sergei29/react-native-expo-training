@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from "react-native";
 import { useRoute, RouteProp } from "@react-navigation/native";
 
 import { useBlogContext } from "../context/BlogContext";
+import { pageStyles } from "../constants";
 
 const NotFound = () => (
   <View style={styles.notFound}>
@@ -33,8 +34,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   container: {
-    flex: 1,
-    padding: 8,
+    ...pageStyles,
   },
   title: {
     fontSize: 24,

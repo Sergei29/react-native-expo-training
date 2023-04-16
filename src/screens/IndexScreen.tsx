@@ -11,7 +11,9 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 
+import ActionButton from "../components/ActionButton";
 import { useBlogContext } from "../context/BlogContext";
+import { pageStyles } from "../constants";
 
 interface IListItemProps {
   title: string;
@@ -30,9 +32,9 @@ const ListItem = ({
     <TouchableOpacity onPress={handleSelect}>
       <View style={!isLastChild ? styles.listItem : styles.listItemLast}>
         <Text style={styles.listItemTitle}>{title}</Text>
-        <TouchableOpacity onPress={handleDelete} style={styles.deleteButton}>
+        <ActionButton onPress={handleDelete} style={styles.deleteButton}>
           <Feather name="trash" size={24} color="black" />
-        </TouchableOpacity>
+        </ActionButton>
       </View>
     </TouchableOpacity>
   );
@@ -72,9 +74,7 @@ const HomeScreen = (): JSX.Element => {
 
 const styles = StyleSheet.create({
   screen: {
-    backgroundColor: "#fff",
-    flex: 1,
-    padding: 8,
+    ...pageStyles,
   },
   list: {
     marginTop: 8,
@@ -102,13 +102,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   deleteButton: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: 50,
-    height: 50,
-    backgroundColor: "#eaeaea",
-    borderRadius: 10,
     zIndex: 100,
   },
 });
